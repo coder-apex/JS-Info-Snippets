@@ -30,14 +30,14 @@ List of files
 2-1 - Methods of primitives
 2-2 - Numbers
 2-3 - Strings
-2-4 - Arrays
+2-4 - Arrays - INCOMPLETE
 2-5 - Array methods - DONE
 2-6 - Iterables
 2-7 - Map, Set, WeakMap and WeakSet
 2-8 - Object.keys, values, entries
 2-9 - Destructuring assignment
 2-10 - Date and time
-2-11 - JSON methods, toJSON 
+2-11 - JSON methods, toJSON - CURRENT
 
 3   - DATA TYPES
 3-1 - 
