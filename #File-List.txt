@@ -1,75 +1,57 @@
 List of files
 
-0   - LANGUAGE FUNDAMENTALS
-0-1 - 
-0-2 - 
-0-3 - 
-0-4 - 
-0-5 - 
-0-6 - 
-0-7 - 
-0-8 - 
-0-9 - 
-0-10 - 
-0-11 - 
-0-12 - 
-0-13 - 
-0-14 - 
-0-15 - 
-0-16 - 
+1   - LANGUAGE FUNDAMENTALS
+1-1 - 
+1-2 - 
+1-3 - 
+1-4 - 
+1-5 - 
+1-6 - 
+1-7 - 
+1-8 - 
+1-9 - 
+1-10 - 
+1-11 - 
+1-12 - 
+1-13 - 
+1-14 - 
+1-15 - 
+1-16 - 
 
-1   - OBJECTS
-1-1 - Object Basics
-1-2 - Symbol type
-1-3 - Object to primitive conversion
-1-4 - Garbage collection
-1-5 - Object methods and "this"
+2   - OBJECTS
+2-1 - Object Basics
+2-2 - Symbol type
+2-3 - Object to primitive conversion
+2-4 - Garbage collection
+2-5 - Object methods and "this"
 1-6 - Constructor and operator "new"
 
-2   - DATA TYPES
-2-1 - Methods of primitives
-2-2 - Numbers
-2-3 - Strings
-2-4 - Arrays - INCOMPLETE
-2-5 - Array methods - DONE
-2-6 - Iterables
-2-7 - Map, Set, WeakMap and WeakSet
-2-8 - Object.keys, values, entries
-2-9 - Destructuring assignment
-2-10 - Date and time
-2-11 - JSON methods, toJSON - CURRENT
-
 3   - DATA TYPES
-3-1 - 
-3-2 - 
-3-3 - 
-3-4 - 
-3-5 - 
-3-6 - 
-3-7 - 
-3-8 - 
-3-9 - 
-3-10 - 
-3-11 - 
-3-12 - 
-3-13 - 
-3-14 - 
-3-15 - 
-3-16 - 
+3-1 - Methods of primitives
+3-2 - Numbers
+3-3 - Strings
+3-4 - Arrays - INCOMPLETE
+3-5 - Array methods - COMPLETE
+3-6 - Iterables
+3-7 - Map, Set, WeakMap and WeakSet
+3-8 - Object.keys, values, entries
+3-9 - Destructuring assignment
+3-10 - Date and time
+3-11 - JSON methods, toJSON - COMPLETE
 
 4   - Advanced working with functions
-4-1 - 
-4-2 - 
-4-3 - 
-4-4 - 
-4-5 - 
-4-6 - 
-4-7 - 
-4-8 - 
-4-9 - 
-4-10 - 
-4-11 - 
-4-12 - 
+4-1 - Recursion and stack
+4-2 - Rest parameters and spread operator - DONE
+4-3 - Closure
+4-4 - The old "var"
+4-5 - Global object
+4-6 - Function object, NFE
+4-7 - The "new Function" syntax
+4-8 - Scheduling: setTimeout and setInterval
+4-9 - Decorators and forwarding, call/apply
+4-10 - Function binding
+4-11 - Currying and partials
+4-12 - Arrow functions revisited
 
 5   - Objects, classes, inheritance
 5-1 - 
