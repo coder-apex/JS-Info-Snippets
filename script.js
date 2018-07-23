@@ -1,7 +1,7 @@
-// 4-3 - Closure
+// 7-3 - Walking the DOM
 
 // declaring variables and constants used in file
-let arr, array, arrayLike, data, date, ele, element, elements, item, items, length, lengths, meetup, name, names, num, number, numbers, range, result, results, room, str, string, student, temp, user, users, val, value, values; 
+let arr, array, arrayLike, data, date, desc, descriptor, description, ele, element, elements, item, items, length, lengths, meetup, name, names, num, number, numbers, range, result, results, room, str, string, student, temp, user, users, val, value, values;
 
 // shorthand console.log function
 function pr(val){
@@ -11,23 +11,6 @@ function pr(val){
 // ==========
 
 
-// ==========
-
-
-// ==========
-
-
-// ==========
-
-
-
-// ==========
-
-
-
-// ==========
-
-
 
 // ==========
 
@@ -163,20 +146,147 @@ function pr(val){
 // ==========
 
 
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
 
 
 
 
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+// ==========
+
+
+// ==========
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
 
 
 
 
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+// ==========
+
+
+// ==========
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
 
 
 
 
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+// ==========
+
+
+// ==========
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========
 
 
 
 
+// ==========
 
+
+
+// ==========
+
+
+
+// ==========
+
+
+
+// ==========

@@ -54,34 +54,34 @@ List of files
 4-12 - Arrow functions revisited
 
 5   - Objects, classes, inheritance
-5-1 - 
-5-2 - 
-5-3 - 
-5-4 - 
-5-5 - 
-5-6 - 
-5-7 - 
-5-8 - 
-5-9 - 
-5-10 - 
-5-11 - 
+5-1 - Property flags and descriptors
+5-2 - Property getters and setters
+5-3 - Prototypal inheritance
+5-4 - F.prototype
+5-5 - Native prototypes
+5-6 - Methods for prototypes
+5-7 - Class patterns
+5-8 - Classes
+5-9 - Class inheritance, super
+5-10 - Class checking: "instanceof"
+5-11 - Mixins
 
 6   - Error Handling
 6-1 - 
 6-2 - 
 
 7   - Document
-7-1 - 
-7-2 - 
-7-3 -
-7-4 - 
-7-5 - 
-7-6 - 
-7-7 - 
-7-8 - 
-7-9 - 
-7-10 - 
-7-11 - 
+7-1 - Browser environment, specs
+7-2 - DOM tree
+7-3 - Walking the DOM
+7-4 - Searching: getElement* and querySelector*
+7-5 - Node properties: type, tag and contents
+7-6 - Attributes and properties
+7-7 - Modifying the document
+7-8 - Styles and classes
+7-9 - Element size and scrolling
+7-10 - Window sizes and scrolling
+7-11 - Coordinates
 
 8   - Introduction into events
 8-1 - 
