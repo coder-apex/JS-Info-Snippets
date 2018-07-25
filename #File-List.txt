@@ -73,7 +73,7 @@ List of files
 7   - Document
 7-1 - Browser environment, specs
 7-2 - DOM tree
-7-3 - Walking the DOM
+7-3 - Walking the DOM - DONE
 7-4 - Searching: getElement* and querySelector*
 7-5 - Node properties: type, tag and contents
 7-6 - Attributes and properties
