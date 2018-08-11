@@ -1,98 +1,59 @@
-// 7-7 - Modifying the document
-
-// declaring variables and constants used in file
-let arr, array, arrayLike, data, date, desc, descriptor, description, ele, element, elements, item, items, length, lengths, meetup, name, names, num, number, numbers, range, result, results, room, str, string, student, temp, user, users, val, value, values;
-
-// shorthand console.log function
-function pr(val) {
-  console.log(val);
+// DOM
+/*
+function sayHi(){
+  alert('Hello');
 }
+window.sayHi();
 
-// ==========
-// Creating an element
-// document.createElement(tag)
-    // Creates a new element with the given tag:
-    let divVar = document.createElement('divVar');
-
-// document.createTextNode(text)
-    // Creates a new text node with the given text:
-    let textNode = document.createTextNode('Here I am');
-
-// creating the message
-divVar = document.createElement('div');
-divVar.className = "alert alert-success";
-divVar.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
-
-// The DOM element is ready but it’s in the variable, and can not be seen, because it’s not been inserted into the page yet.
-
-// ==========
-// Insertion Methods
-// To make the div show up, we need to insert it somewhere into document. 
-// To insert it in the document body we use document.body.appendChild(div)
-document.body.appendChild(divVar);
-
-// adding a new li in the ol
-let newLi = document.createElement("li"); // create new li
-newLi.innerHTML = 'OL Item 4 - Created'; // define innerHTML text
-let olItem = document.getElementById('ol'); // choose .ol
-ol.appendChild(newLi);
-
-// Here’s a brief list of methods to insert a node into a parent element (parentElem for short):
-// parentElem.appendChild(node)
-// Appends node as the last child of parentElem.
-/*
-<ol id="list">
-  <li>0</li>
-  <li>1</li>
-  <li>2</li>
-</ol>
-<script>
-  let newLi = document.createElement('li');
-  newLi.innerHTML = 'Hello, world!';
-
-  list.insertBefore(newLi, list.children[1]);
-</script>
+// change href/address of current page
+alert(location.href); // shows current URL
+if (confirm("Go to wikipedia?")) {
+  location.href = "https://wikipedia.org"; // redirect the browser to another URL
+}
 */
 
+// function p(value){
+//   console.log(value);
+// }
 
-// parentElem.appendChild(node)
-// Appends node as the last child of parentElem. 
-// to insert li in ol after item 2
-let ordList = document.getElementById('ol');
-let newItem = document.createElement('li');
-newItem.innerHTML = 'Created new element';
-ordList.insertBefore(newItem, ordList.children[2]);
+// let div = document.getElementsByTagName("div");
+// // console.log(div);
+
+// let element = document.getElementById('table');
+// // console.log(element);
+// // let currentEle = div
+
+// var html = document.querySelector('H1');
+// p(html);
+// var innerHTML = html.innerHTML;
+// p(innerHTML);
+// html.innerHTML = 'This is <a href=#>Linked Heading 1</a>';
+// innerHTML = html.innerHTML;
+// p(innerHTML);
+// html.innerHTML += '. This is the end';
+// innerHTML = html.innerHTML;
+// p(innerHTML);
+// html.innerHTML = 'This is the start. ' + html.innerHTML;
+// innerHTML = html.innerHTML;
+// p(innerHTML);
 
 
-// parentElem.replaceChild(node, oldChild)
-// Replaces oldChild with node among children of parentElem.
-let selectedList = document.getElementsByClassName('lists');
-// selectedList = selectedList.
+// let users = [
+//   {id : 1, name : `John`},
+//   {id : 2, name : `Joseph`},
+//   {id : 3, name : `Jonathan`},
+//   {id : 4, name : `Jesus`},
+//   {id : 5, name : `Judas`}
+// ];
 
-console.log(selectedList);
+// let ids = users.map(function(user){
+//   console.log(`Current user is `);
+//   console.log(user);
+//   return user.id;
+// });
 
-/*
-<ol id="list">
-  <li>0</li>
-  <li>1</li>
-  <li>2</li>
-</ol>
-<script>
-  let newLi = document.createElement('li');
-  newLi.innerHTML = 'Hello, world!';
 
-  list.insertBefore(newLi, list.children[1]);
-</script>
-*/
-
-// ==========
-parentElem = document.getElementById("divA");
-console.log(parentElem);
-oldChild = document.querySelector('#divA > ul').firstElementChild;
-console.log(oldChild);
-let newChild = document.createElement('li');
-newChild.innerText = 'New child text';
-parentElem.replace(oldChild, newChild);
+document. 
 
 
 // ==========

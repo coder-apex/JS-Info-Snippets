@@ -1,32 +1,8 @@
-function pr(val){
+function p(val){
   console.log(val);
 }
 
-// list = select l.collection
-
-// listItems = select li.collection-item:first-child
-
-
-
-// get childNodes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+let items, mainItem, list, listArray, listItem, listItems, subItem, val, value;
 
 
 
