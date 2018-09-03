@@ -8,12 +8,14 @@ let submitButton = document.querySelector('#submit');
 let taskList = document.querySelector('#task-list');
 let delButton = document.querySelectorAll('.delete-icon');
 let taskCheckBox = document.querySelectorAll('li.task > input');
+let clearTaskButton = document.querySelector('a.btn.btn-warning.btn-lg.active');
 
 // lkj(inputBox);
 // lkj(submitButton);
 // lkj(taskList);
 // lkj(delButton);
 // lkj(taskCheckBox);
+// lkj(clearTaskButton);
 
 // EVENTLISTENER - for keypress in new task submit box
 inputBox.addEventListener('keypress', captureInput);
@@ -58,7 +60,7 @@ function clickSubmit(e){
   newElement = document.createElement('a');
   newElement.setAttribute('href', '#');
   let newIcon = document.createElement('i');
-  newIcon.classList = 'far fa-times-circle delete-icon';
+  newIcon.classList = 'far fa-times-circle delete-icon'
   newIcon.setAttribute('style', 'font-size:7x;');
   newIcon.addEventListener('click', deleteTask);
   newElement.appendChild(newIcon);
@@ -102,24 +104,21 @@ function completeTask(e){
   lkj('Comlete task checkbox clicked');
 
   let eventNow = e.target.parentElement;
-  lkj(eventNow);
+  // lkj(eventNow);
 
-  lkj(e.target.getAttribute('checked'));
-
-
+  // lkj(e.target.getAttribute('checked'));
 
   if(e.target.getAttribute('checked') == 'false'){
   eventNow.style.textDecoration = 'line-through';
   eventNow.style.color = 'black';
-  eventNow.style.fontSize = 'smaller';
+  eventNow.style.fontSize = '1.25em';
   }
   else if(e.target.getAttribute('checked') == 'true'){
     eventNow.style.textDecoration = 'underline';
     eventNow.style.color = 'inherit';
-    eventNow.style.fontSize = 'inherit';    
+    eventNow.style.fontSize = '1.5em';    
   }
-  lkj(eventNow.style.textDecoration);
-
+  // lkj(eventNow.style.textDecoration);
 
   // check and uncheck the checkbox based on current status
   if(e.target.getAttribute('checked') == 'false'){
@@ -128,11 +127,15 @@ function completeTask(e){
   else if(e.target.getAttribute('checked') == 'true'){
     e.target.setAttribute('checked', 'false');
   }
-
-
 }
 
+// EVENTLISTENER - Clear tasks on clicking clear task button
+clearTaskButton.addEventListener('click', clearTasks);
+function clearTasks(e){
+  lkj('Clear Task Button Clicked');
+  taskList.innerHTML = '';
 
+}
 
 
 

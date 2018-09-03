@@ -62,6 +62,7 @@
 
 .task{
   background-color: rgba(0, 0, 0, 0.1);
+  font-size: 1.5em;
 }
 
 .delete-icon{
