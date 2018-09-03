@@ -63,6 +63,13 @@
 .task{
   background-color: rgba(0, 0, 0, 0.1);
   font-size: 1.5em;
+  font-weight: bold;
+}
+
+.completed-task{
+  text-decoration: line-through;
+  color: #222;
+  font-weight: 400;
 }
 
 .delete-icon{
@@ -136,3 +143,4 @@
  .fa-times-circle:hover {
   color: rgb(255, 118, 118);
 }
+

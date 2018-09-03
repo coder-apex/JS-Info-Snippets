@@ -1,147 +1,170 @@
-function lkj(val){
+function lkj(val) {
   console.log(val);
 }
 
-// getting variables
-let inputBox = document.querySelector('#input');
-let submitButton = document.querySelector('#submit');
-let taskList = document.querySelector('#task-list');
-let delButton = document.querySelectorAll('.delete-icon');
-let taskCheckBox = document.querySelectorAll('li.task > input');
-let clearTaskButton = document.querySelector('a.btn.btn-warning.btn-lg.active');
+// RESET LOCAL FOR TESTING PURPOSE
+localStorage.removeItem('localTasks');
 
-// lkj(inputBox);
-// lkj(submitButton);
+// getting global variables 
+let submitTaskBox = document.querySelector('#input');
+let submitTaskButton = document.querySelector('#submit');
+let taskList = document.querySelector('#task-list');
+let clearTaskButton = document.querySelector('#clear-button');
+
+// create taskList object in LocalStorage if object does not exist
+let currentTaskList;
+
+// create localStorage item if it does not exist
+if (localStorage.getItem('localTasks') === null) {
+  currentTaskList = [];
+} else {
+  currentTaskList = JSON.parse(localStorage.getItem('localTasks'));
+}
+
+// lkj(submitTaskBox);
+// lkj(submitTaskButton);
 // lkj(taskList);
-// lkj(delButton);
-// lkj(taskCheckBox);
 // lkj(clearTaskButton);
 
-// EVENTLISTENER - for keypress in new task submit box
-inputBox.addEventListener('keypress', captureInput);
-function captureInput(event){
-  // lkj('Input Event');
-  // lkj(event.target.value);
+// EVENTS
+// EVENT - Add new task on click submit button
+submitTaskButton.addEventListener('click', addTask);
+// EVENT - Submit task if enter is pressed in submitTaskBox
+submitTaskBox.addEventListener('keypress', valueInInputBox);
+// EVENT - Delete task if x icon is clicked
+taskList.addEventListener('click', deleteTask);
+// EVENT - Complete task if checkbox is checked is clicked
+taskList.addEventListener('click', completeTask);
+// EVENT - Clear all tasks when clear button is clicked
+clearTaskButton.addEventListener('click', deleteAllTasks);
 
-  // if enter is pressed
-  if (event.keyCode === 13) {
-    // lkj('Enter button clicked');
-    submitButton.click();
-  }
+// FUNCTION EVENT - addTask() executed when person clicks on submit task button
+function addTask(e) {
+  // fetch the current value input in task box
+  let task = submitTaskBox.value;
+  // lkj(task);
+
+  currentTaskList.push(task);
+  // lkj(currentTaskList);
+
+  updateLocalStorage();
+
+  //   alert('Task saved');
+
+  //creating task on the HTML Page
+  createTask(task);
 }
 
-// EVENTLISTENER - for click on submit button
-submitButton.addEventListener('click', clickSubmit);
-function clickSubmit(e){
-  // lkj(e.type);
-  // lkj('Submit clicked');
+// FUNCTION EVENT - valueInInputBox() is executed when there is a keypress in text field and it submits value when enter is pressed
+function valueInInputBox(e) {
+  // submit value if enter is pressed
+  if (e.target.value != '' && e.keyCode == 13) {
+    lkj('enter pressed. Value Added: ' + e.target.value);
+    submitTaskButton.click();
+    e.target.value = '';
+  } else if (e.target.value == '' && e.keyCode == 13) {
+    lkj('enter pressed. NO VALUE ' + e.target.value);
+    alert('Oops, you have not entered anything');
+  }
 
-  // create a new task 'li' item
+}
+
+// FUNCTION - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
+function createTask(taskText) {
   let newTask = document.createElement('li');
   newTask.className = 'task';
-  newTask.id = 'new-task';
 
-  // create rest of the inner html elements
-  // Input tag - checkbox
-  let newElement = document.createElement('input');
-  newElement.setAttribute('type', 'checkbox');
-  newElement.setAttribute('value', '');
-  newElement.setAttribute('style', 'text-align: left; align: left;');
-  newElement.addEventListener('click', completeTask);  
-  newTask.appendChild(newElement);
-  // newTask.innerHTML = newElement;
-  // setAttribute('class', 'task');
-  
-  // append text node with value of input
-  newElement = document.createTextNode(inputBox.value);
-  newTask.appendChild(document.createTextNode(inputBox.value));
+  // create checkbox element
+  let newCheckbox = document.createElement('input');
+  newCheckbox.setAttribute('type', 'checkbox');
+  newCheckbox.setAttribute('value', '');
+  newCheckbox.setAttribute('checked', 'false');
 
-  // append x icon used to delete item
-  newElement = document.createElement('a');
-  newElement.setAttribute('href', '#');
-  let newIcon = document.createElement('i');
-  newIcon.classList = 'far fa-times-circle delete-icon'
-  newIcon.setAttribute('style', 'font-size:7x;');
-  newIcon.addEventListener('click', deleteTask);
-  newElement.appendChild(newIcon);
+  // create task description text node
+  let taskValue = document.createTextNode(taskText);
 
-  newTask.appendChild(newElement);
-  // add deleteTask event to the 
+  // create anchor elemet
+  let newA = document.createElement('a');
+  newA.setAttribute('href', '#');
 
-  // lkj(newElement);
-  // lkj(newIcon);
+  // create icon element
+  let newI = document.createElement('i');
+  newI.classList = 'far fa-times-circle delete-icon';
+  newI.setAttribute('style', 'font-size:7x;');
 
+  // append icon element in anchor
+  newA.appendChild(newI);
+
+  // append checkbox, text and anchor in list item
+  newTask.appendChild(newCheckbox);
+  newTask.appendChild(taskValue);
+  newTask.appendChild(newA);
+
+  // append list item to main task list
   taskList.appendChild(newTask);
-
-  // clear the input box after creating the element
-  inputBox.value = '';
 }
 
-// EVENTLISTENER - for click on task delete button
-// to delete task we need to addEventListener to all the icons
-// we will do this by running a for loop on all the nodelist elements
-for(let count = 0; count < delButton.length; count++){
-  // lkj(delButton[count]);
-  delButton[count].addEventListener('click', deleteTask);  
-}
-function deleteTask(e){
-  // lkj('delete icon clicked');
-  let toDeleteTask = e.target.parentElement.parentElement;
-  // lkj(toDeleteTask);
+// FUNCTION EVENT - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
+function deleteTask(e) {
+  // lkj('deleteTask Event');
+  // lkj(e.target.classList);
 
-  // removing the element
-  toDeleteTask.remove();
-}
-
-// EVENTLISTENER - for clicking on complete task button
-// to complete task we need to addEventListener to all the checkboxes
-// we will do this by running a for loop on all the nodelist elements
-for(let count = 0; count < taskCheckBox.length; count++){
-  // lkj(delButton[count]);
-  taskCheckBox[count].addEventListener('click', completeTask);  
-}
-function completeTask(e){
-  lkj('Comlete task checkbox clicked');
-
-  let eventNow = e.target.parentElement;
-  // lkj(eventNow);
-
-  // lkj(e.target.getAttribute('checked'));
-
-  if(e.target.getAttribute('checked') == 'false'){
-  eventNow.style.textDecoration = 'line-through';
-  eventNow.style.color = 'black';
-  eventNow.style.fontSize = '1.25em';
+  // delete task if element clicked is the delete icon
+  if (e.target.classList.contains('delete-icon')) {
+    lkj('Delete Icon clicked');
+    let toDeleteTask = e.target.parentElement.parentElement;
+    // lkj("Before Delete:");
+    // lkj(currentTaskList);
+    // lkj(e.target.parentElement.parentElement.innerText);
+    taskValue = e.target.parentElement.parentElement.innerText;
+    removeTaskFromTaskList(taskValue);
+    // lkj("After Delete:");
+    // lkj(currentTaskList);
+    // toDeleteTask.remove();
   }
-  else if(e.target.getAttribute('checked') == 'true'){
-    eventNow.style.textDecoration = 'underline';
-    eventNow.style.color = 'inherit';
-    eventNow.style.fontSize = '1.5em';    
-  }
-  // lkj(eventNow.style.textDecoration);
+}
 
-  // check and uncheck the checkbox based on current status
-  if(e.target.getAttribute('checked') == 'false'){
+// FUNCTION - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
+function completeTask(e) {
+  let currentTask;
+
+  if (e.target.type == 'checkbox') {
+    currentTask = e.target.parentElement;
+  }
+
+  // delete task if element clicked is the delete icon
+  if (e.target.getAttribute('checked') == 'false') {
+    lkj('Task Done');
+    currentTask.classList.add('completed-task');
     e.target.setAttribute('checked', 'true');
-  }
-  else if(e.target.getAttribute('checked') == 'true'){
+  } else if (e.target.getAttribute('checked') == 'true') {
+    lkj('Task Not Done');
+    currentTask.classList.remove('completed-task');
     e.target.setAttribute('checked', 'false');
   }
 }
 
-// EVENTLISTENER - Clear tasks on clicking clear task button
-clearTaskButton.addEventListener('click', clearTasks);
-function clearTasks(e){
-  lkj('Clear Task Button Clicked');
-  taskList.innerHTML = '';
+// FUNCTION - deleteAllTasks() is executed when delete tasks bustton is clicked
+function deleteAllTasks() {
+  
+    lkj("Before Delete ALL:");
+    lkj(currentTaskList);
+    
+    taskList.innerHTML = '';
+    currentTaskList = [];
+    localStorage.setItem('localTasks', JSON.stringify(currentTaskList));
 
+    lkj("After Delete ALL:");
+    lkj(currentTaskList);
 }
 
+function updateLocalStorage() {
+  localStorage.setItem('localTasks', JSON.stringify(currentTaskList));
+}
 
-
-
-
-
-
-
-
+function removeTaskFromTaskList(task) {
+  var index = currentTaskList.indexOf(task);
+  if (index > -1) {
+    currentTaskList.splice(index, 1);
+  }
+}
