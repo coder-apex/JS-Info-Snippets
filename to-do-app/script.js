@@ -3,15 +3,23 @@ function lkj(val) {
 }
 
 // RESET LOCAL FOR TESTING PURPOSE
-localStorage.removeItem('localTasks');
+// localStorage.removeItem('localTasks');
 
+// The Script is organized as follows
+// 1. Initial Setup
+// 2. Event Listeners
+// 3. Functions for Events
+// 4. Functions called from Event Functions
+
+// 1. Initial Setup
 // getting global variables 
 let submitTaskBox = document.querySelector('#input');
 let submitTaskButton = document.querySelector('#submit');
 let taskList = document.querySelector('#task-list');
 let clearTaskButton = document.querySelector('#clear-button');
 
-// create taskList object in LocalStorage if object does not exist
+// create currentTaskList object to store tasks for session
+// As the value of currentTaskList is changed, it is reflected in localStorage by updating its value
 let currentTaskList;
 
 // create localStorage item if it does not exist
@@ -26,7 +34,7 @@ if (localStorage.getItem('localTasks') === null) {
 // lkj(taskList);
 // lkj(clearTaskButton);
 
-// EVENTS
+// 2. Event Listeners
 // EVENT - Add new task on click submit button
 submitTaskButton.addEventListener('click', addTask);
 // EVENT - Submit task if enter is pressed in submitTaskBox
@@ -38,19 +46,23 @@ taskList.addEventListener('click', completeTask);
 // EVENT - Clear all tasks when clear button is clicked
 clearTaskButton.addEventListener('click', deleteAllTasks);
 
+// initiate tasks and render on HTML Page if any tasks are stored in localStorage
+populateTasks();
+
+// 3. Functions for Events
 // FUNCTION EVENT - addTask() executed when person clicks on submit task button
 function addTask(e) {
   // fetch the current value input in task box
   let task = submitTaskBox.value;
   // lkj(task);
-
+  
   currentTaskList.push(task);
-  // lkj(currentTaskList);
-
+  // displayCurrentTaskList();
+  
   updateLocalStorage();
-
+  
   //   alert('Task saved');
-
+  
   //creating task on the HTML Page
   createTask(task);
 }
@@ -60,13 +72,69 @@ function valueInInputBox(e) {
   // submit value if enter is pressed
   if (e.target.value != '' && e.keyCode == 13) {
     lkj('enter pressed. Value Added: ' + e.target.value);
+    displayCurrentTaskList();
+    displayLocalStorage();
     submitTaskButton.click();
     e.target.value = '';
   } else if (e.target.value == '' && e.keyCode == 13) {
-    lkj('enter pressed. NO VALUE ' + e.target.value);
+    lkj('ERROR: enter pressed. NO VALUE ');
     alert('Oops, you have not entered anything');
   }
+  
+}
 
+// FUNCTION EVENT - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
+function deleteTask(e) {
+  // lkj('deleteTask Event');
+  // lkj(e.target.classList);
+  
+  // delete task if element clicked is the delete icon
+  if (e.target.classList.contains('delete-icon')) {
+    lkj('Delete Icon clicked');
+    let toDeleteTask = e.target.parentElement.parentElement;
+    
+    lkj("Before Delete:");
+    displayCurrentTaskList();
+    lkj(e.target.parentElement.parentElement.innerText);
+    
+    taskValue = e.target.parentElement.parentElement.innerText;
+    removeTaskFromTaskList(taskValue);
+    toDeleteTask.remove();
+    
+    lkj("After Delete:");
+    displayCurrentTaskList();
+    toDeleteTask.remove();
+    
+    updateLocalStorage();
+  }
+}
+
+// FUNCTION EVENT- createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
+function completeTask(e) {
+  let currentTask;
+  
+  if (e.target.type == 'checkbox') {
+    currentTask = e.target.parentElement;
+  }
+  
+  // delete task if element clicked is the delete icon
+  if (e.target.getAttribute('checked') == 'false') {
+    lkj('Task Done');
+    currentTask.classList.add('completed-task');
+    e.target.setAttribute('checked', 'true');
+  } else if (e.target.getAttribute('checked') == 'true') {
+    lkj('Task Not Done');
+    currentTask.classList.remove('completed-task');
+    e.target.setAttribute('checked', 'false');
+  }
+}
+
+// 4. Functions called from Event Functions
+// FUNCTION - populateTasks() is executed at the initial setup phase of the script and populates the tasks that are stored in local storage on the HTML Page
+function populateTasks(){
+  currentTaskList.forEach(taskInTaskList => {
+    createTask(taskInTaskList);
+  });
 }
 
 // FUNCTION - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
@@ -104,67 +172,41 @@ function createTask(taskText) {
   taskList.appendChild(newTask);
 }
 
-// FUNCTION EVENT - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
-function deleteTask(e) {
-  // lkj('deleteTask Event');
-  // lkj(e.target.classList);
-
-  // delete task if element clicked is the delete icon
-  if (e.target.classList.contains('delete-icon')) {
-    lkj('Delete Icon clicked');
-    let toDeleteTask = e.target.parentElement.parentElement;
-    // lkj("Before Delete:");
-    // lkj(currentTaskList);
-    // lkj(e.target.parentElement.parentElement.innerText);
-    taskValue = e.target.parentElement.parentElement.innerText;
-    removeTaskFromTaskList(taskValue);
-    // lkj("After Delete:");
-    // lkj(currentTaskList);
-    // toDeleteTask.remove();
-  }
-}
-
-// FUNCTION - createTask() creates HTML task element in task list when submit button is clicked or enter is pressed in submit text box
-function completeTask(e) {
-  let currentTask;
-
-  if (e.target.type == 'checkbox') {
-    currentTask = e.target.parentElement;
-  }
-
-  // delete task if element clicked is the delete icon
-  if (e.target.getAttribute('checked') == 'false') {
-    lkj('Task Done');
-    currentTask.classList.add('completed-task');
-    e.target.setAttribute('checked', 'true');
-  } else if (e.target.getAttribute('checked') == 'true') {
-    lkj('Task Not Done');
-    currentTask.classList.remove('completed-task');
-    e.target.setAttribute('checked', 'false');
-  }
-}
-
 // FUNCTION - deleteAllTasks() is executed when delete tasks bustton is clicked
 function deleteAllTasks() {
   
     lkj("Before Delete ALL:");
-    lkj(currentTaskList);
+    displayCurrentTaskList();
     
     taskList.innerHTML = '';
     currentTaskList = [];
     localStorage.setItem('localTasks', JSON.stringify(currentTaskList));
 
     lkj("After Delete ALL:");
-    lkj(currentTaskList);
+    displayCurrentTaskList();
 }
 
+// FUNCTION - updateLocalStorage() is called when a value in currentTaskList changes and localStorage needs to be updated
 function updateLocalStorage() {
   localStorage.setItem('localTasks', JSON.stringify(currentTaskList));
 }
 
+// FUNCTION - removeTaskFromTaskList() is called to remove a task form currentTaskList 
 function removeTaskFromTaskList(task) {
   var index = currentTaskList.indexOf(task);
   if (index > -1) {
     currentTaskList.splice(index, 1);
   }
+}
+
+// FUNCTION - 
+function displayLocalStorage(){
+  lkj("Local Storage value:");
+  lkj(localStorage);
+}
+
+// FUNCTION - 
+function displayCurrentTaskList(){
+  lkj("Current task list Array:");
+  lkj(currentTaskList);
 }
