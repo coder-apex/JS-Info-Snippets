@@ -1,13 +1,15 @@
 // RESET LOCAL FOR TESTING PURPOSE
 localStorage.clear();
 
+//TODO: Check enter Keypress on questions field
+
 function lkj(val) {
   console.log(val);
 }
 
 // declaring global variables
-let questionBank;
-let questionID = 0;
+let questionBank = [];
+let questionID = 1;
 let question = {};
 
 // create localStorage item if it does not exist
@@ -26,6 +28,7 @@ let quizSection = document.querySelector("#quiz-section");
 // EVENT - Detect click in Quiz and Question Section
 addQuestionSection.addEventListener('click', whereWasTheClick);
 quizSection.addEventListener('click', whereWasTheClick);
+quizSection.addEventListener('keypress', wasEnterPressed);
 
 // function to check on which element the click occured and call the appropriate function
 function whereWasTheClick(e) {
@@ -45,16 +48,19 @@ function whereWasTheClick(e) {
       break;
     case 'question-box':
       lkj('Question Box Clicked');
+      wasEnterPressed(e);
       break;
     case 'correct-answer-box':
       lkj('Correct Answer Box Clicked');
+      wasEnterPressed(e);
       break;
     case 'wrong-answer-box':
       lkj('Wrong Answer Box Clicked');
+      wasEnterPressed(e);
       break;
     case 'add-question':
       lkj('Add Question Button Clicked');
-      addQuestion();
+      addQuestion(e);
       break;
     case 'reset-question':
       lkj('Reset Question Button Clicked');
@@ -65,7 +71,7 @@ function whereWasTheClick(e) {
 
 
 function quizSubmitAnswer() {
-  lkj("Answer submitted. Waiting for result!")
+  lkj("In quizSubmitAnswer()");
 
   // Check if answer is correct
 
@@ -76,7 +82,7 @@ function quizSubmitAnswer() {
 }
 
 function quizShowAnswer() {
-  lkj("User wants to view Answer!");
+  lkj("In quizShowAnswer()");
 
   // Show answer to user 
 
@@ -84,7 +90,7 @@ function quizShowAnswer() {
 }
 
 function showNextQuestion() {
-  lkj("Please show the next question");
+  lkj("In showNextQuestion()");
 
   // get random question number
   let id = getRandomQuestionID();
@@ -122,7 +128,7 @@ function getQuestion(id) {
 }
 
 function replaceQuestion() {
-  lkj("In replaceQuestion");
+  lkj("In replaceQuestion()");
   // fetch parent element
 
 
@@ -132,7 +138,7 @@ function replaceQuestion() {
 }
 
 function replaceOptions() {
-  lkj("In replaceOptions");
+  lkj("In replaceOptions()");
   // fetch parent element
 
 
@@ -141,28 +147,116 @@ function replaceOptions() {
 
 }
 
-function addQuestion() {
-  lkj("In addQuestion()");
-
-  // fetch question, answers from text input
-
-
-  // if text inputs are empty, then display error message
-
-
-  // increment question count
-
-
-  // Update localQB
-  updateLocalQB();
-
+function wasEnterPressed(e){
+  lkj("In wasEnterPressed()");
+    if (e.currentTarget.value != '' && e.keyCode == 13) {
+    lkj('enter pressed. Value Added: ' + e.target.value);
+    addQuestion(e);
+  } else if (e.currentTarget.value == '' && e.keyCode == 13) {
+    lkj('ERROR: enter pressed. NO VALUE ');
+  }
 
 }
 
+function addQuestion(e) {
+  lkj("In addQuestion()");
+  // lkj(e.currentTarget);
+
+    let questionText = getQuestionText(e);
+  lkj("Question text: " + questionText);
+  
+  let correctAnswerText = getCorrectAnswerText(e);
+  lkj("Correct Answer text: " + correctAnswerText);
+  
+  let wrongAnswerText = getWrongAnswerText(e);
+  lkj("Wrong Answer text: " + wrongAnswerText);
+  
+  // return false if any values are empty
+  let hasNoErrors = canCreateQuestion(questionText, correctAnswerText, wrongAnswerText);
+
+  // save values only if no error
+  if(hasNoErrors){
+  // save received values to the question object
+  question = {};
+  question.id = questionID;
+  question.que = questionText;
+  question.ans = correctAnswerText;
+  question.wro = wrongAnswerText;
+
+  printQuestion();
+
+  questionBank.push(question);
+  printQuestionBank();
+
+  // increment question count
+  questionID++;
+  // Update localQB
+  updateLocalQB();
+  }
+  else{
+    lkj("Something Missing");
+  }
+
+}
+
+function getQuestionText(e) {
+  lkj("In getQuestionText()");
+  // getting question text
+  let parentElement = e.currentTarget;
+  let element = parentElement.querySelector("#question-box");
+  let value = element.value;
+
+  return value;
+}
+
+function getCorrectAnswerText(e) {
+  lkj("In getCorrectAnswerText()");
+  // getting question text
+  let parentElement = e.currentTarget;
+  let element = parentElement.querySelector("#correct-answer-box");
+  let value = element.value;
+
+  return value;
+}
+
+function getWrongAnswerText(e) {
+  lkj("In getWrongAnswerText()");
+  // getting question text
+  let parentElement = e.currentTarget;
+  let element = parentElement.querySelector("#wrong-answer-box");
+  let value = element.value;
+
+  return value;
+}
+
+function canCreateQuestion(question, correctAns, wrongAns){
+    // if any of the fields are empty, then display error message
+    let canWeDoThat = true;
+    if (question == '') {
+      lkj("ERROR : Question Missing");
+      alert('Oops! You have no Question, mate!\nERROR - Question field empth');
+      canWeDoThat = false;
+    } else if (correctAns == '') {
+      lkj("ERROR : Correct Answer Missing");
+      alert("This question don't have no right answer?\nERROR - Correct Answer field empth");
+      canWeDoThat = false;
+    } else if (wrongAns == '') {
+      lkj("ERROR : Wrong Answer Missing");
+      alert('Not everything is right. Please enter a wrong answer!\nERROR - Wrong Answer field empth');
+      canWeDoThat = false;
+    }
+
+    return canWeDoThat; 
+}
 
 function printQuestionBank() {
   lkj("Session Question Bank:");
   lkj(questionBank);
+}
+
+function printQuestion() {
+  lkj("Current Question:");
+  lkj(question);
 }
 
 function printLocalQB() {
@@ -177,5 +271,6 @@ function resetQuestionFields() {
 }
 // FUNCTION - updateLocalStorage() is called when a value in currentTaskList changes and localStorage needs to be updated
 function updateLocalQB() {
+  lkj("In updateLocalQB()");
   localStorage.setItem('localQB', JSON.stringify(questionBank));
 }
