@@ -75,9 +75,9 @@
 
 
           <div class="quiz-button-section">
-              <button id="next-question" type="button" class="btn btn-lg btn-outline-primary">Submit Answer</button>
+              <button id="submit-answer" type="button" class="btn btn-lg btn-outline-primary">Submit Answer</button>
               <button id="show-answer" type="button" class="btn btn-lg btn-outline-danger">Show Answer</button>
-              <button id="add-question" type="button" class="btn btn-lg btn-outline-success">Add Question</button>
+              <button id="next-question" type="button" class="btn btn-lg btn-outline-success">Next Question</button>
           </div>
         </div>
 
@@ -95,7 +95,7 @@
     </div>
   </section>
 
-  <section id="add-question" class="bg-light">
+  <section id="add-question-section" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -105,25 +105,25 @@
           <div class="form-group row">
               <label for="question-input" class="col-2 col-form-label">Question</label>
               <div class="col-10">
-                <input class="form-control" type="text" value="Enter question here" id="question-input">
+                <input id="question-box" class="form-control" type="text" value="Enter question here" id="question-input">
               </div>
             </div>
             <div class="form-group row">
               <label for="correct-answer-input" class="col-2 col-form-label">Answer</label>
               <div class="col-10">
-                <input class="form-control" type="text" value="Enter the correct answer here" id="correct-answer-input">
+                <input id="correct-answer-box" class="form-control" type="text" value="Enter the correct answer here">
               </div>
             </div>
             <div class="form-group row">
               <label for="wrong-answer-input" class="col-2 col-form-label">Options</label>
               <div class="col-10">
-                <input class="form-control" type="text" value="Enter other options here" id="wrong-answer-input">
+                <input id="wrong-answer-box" class="form-control" type="text" value="Enter other options here">
               </div>
             </div>
 
             <div class="add-question-button-section">
                 <button id="add-question" type="button" class="btn btn-lg btn-outline-success">Add</button>
-                <button id="add-question" type="button" class="btn btn-lg btn-outline-danger">Reset</button>
+                <button id="reset-question" type="button" class="btn btn-lg btn-outline-danger">Reset</button>
             </div>
 
 
