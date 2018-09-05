@@ -144,60 +144,44 @@ function replaceQuestion(selectedQuestion) {
 function replaceOptions(selectedQuestion) {
   lkj("\n\n  ===== In replaceOptions() =====");
 
+  let questionList = document.querySelector('#quiz-options');
+
+  // Follow one order for odd and other order for even
   if(selectedQuestion.id % 2 == 0){
-    lkj("    - Even order question");
+    lkj("    - ***************** Even order question");
+    oddOptionOrder(questionList, selectedQuestion);
   }
   else{
     lkj("    - Odd order question");
+    evenOptionOrder(questionList, selectedQuestion);    
   }
-  // // fetch parent element
-  // let questionList = document.querySelector('#quiz-options');
-  // // lkj("  - Options Parent Element Selected");
-  // // lkj(questionList);
-  
-  // // create div
-  // let div = document.createElement("div");
-  // div.className = 'form-check';
-  
-  // // create label
-  // let label = document.createElement('label');
-  // label.setAttribute("class", "form-check-label");
-  // // lkj("Label:");
-  // // lkj(label);
-  
-  // // create new input element
-  // let inputElement = document.createElement("input");
-  // inputElement.setAttribute("class", "form-check-input");
-  // inputElement.setAttribute("type", "radio");
-  // // lkj("Input Label:");
-  // // lkj(inputElement);
-  
-  // // create text node
-  // let newQuestionText = document.createTextNode(selectedQuestion.ans);
-  // // replacing innerText of original question
-  // questionList.children[0].innerText = newQuestionText;
-  
-  // // append into div - lavel, text and input
-  // label.appendChild(inputElement);
-  // label.appendChild(newQuestionText);
-  // div.appendChild(label);
-  
-  
-  
-  
-  let questionList = document.querySelector('#quiz-options');
-  let div = createDivForQuestion(selectedQuestion, selectedQuestion.ans);
-  // let originalQuestion = questionList.children[0];
-  // lkj(originalQuestion);
-  
-  // lkj(questionList);
-  questionList.appendChild(div);
-  questionList.removeChild(questionList.children[0]);
-  
+    
   lkj("  ===== End of replaceOptions() =====\n\n");
 }
 
-function createDivForQuestion(selectedQuestion, questionText){
+function oddOptionOrder(questionList, selectedQuestion){
+  let div;
+  div = createDivForQuestion(selectedQuestion, selectedQuestion.ans);
+  questionList.appendChild(div);
+  questionList.removeChild(questionList.children[0]);
+
+  div = createDivForQuestion(selectedQuestion, selectedQuestion.wro);
+  questionList.appendChild(div);
+  questionList.removeChild(questionList.children[0]);
+}
+
+function evenOptionOrder(questionList, selectedQuestion){
+  let div;
+  div = createDivForQuestion(selectedQuestion, selectedQuestion.wro);
+  questionList.appendChild(div);
+  questionList.removeChild(questionList.children[0]);
+
+  div = createDivForQuestion(selectedQuestion, selectedQuestion.ans);
+  questionList.appendChild(div);
+  questionList.removeChild(questionList.children[0]);
+}
+
+function createDivForQuestion(selectedQuestion, optionText){
   let questionList = document.querySelector('#quiz-options');
   // create div
   let div = document.createElement("div");
@@ -217,13 +201,13 @@ function createDivForQuestion(selectedQuestion, questionText){
     // lkj(inputElement);
     
     // create text node
-    let newQuestionText = document.createTextNode(selectedQuestion.ans);
+    let newText = document.createTextNode(optionText);
     // replacing innerText of original question
-    questionList.children[0].innerText = newQuestionText;
+    questionList.children[0].innerText = newText;
     
     // append into div - lavel, text and input
     label.appendChild(inputElement);
-    label.appendChild(newQuestionText);
+    label.appendChild(newText);
     div.appendChild(label);
 
     return div;  
