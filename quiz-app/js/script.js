@@ -71,17 +71,19 @@ function whereWasTheClick(e) {
   return;
 }
 
+// EVENT FUNCTION - executed when user clicks submit button in quiz
 function quizSubmitAnswer() {
   lkj("In quizSubmitAnswer()");
-
+  
   // Check if answer is correct
-
-
+  
+  
   // display correct/wrong message
-
-
+  
+  
 }
 
+// EVENT FUNCTION - executed when user clicks show answer button in quiz section
 function quizShowAnswer() {
   lkj("In quizShowAnswer()");
 
@@ -90,6 +92,7 @@ function quizShowAnswer() {
 
 }
 
+// EVENT FUNCTION - executed when user clicks show next question in quiz section
 function showNextQuestion() {
   lkj("===== In showNextQuestion() =====");
 
@@ -110,6 +113,7 @@ function showNextQuestion() {
 
 }
 
+// FUNCTION - returns a random number that is used to fetch the question from question bank 
 function getRandomQuestionID() {
   lkj("\n\n  ===== In getRandomQuestionID() =====");
   // get total no of questions
@@ -120,6 +124,7 @@ function getRandomQuestionID() {
   return qID;
 }
 
+// FUNCTION - returns a question object that has the random question id 
 function getQuestion(id) {
   lkj("\n\n  ===== In getQuestion(id) =====");
 
@@ -130,6 +135,7 @@ function getQuestion(id) {
   return tempQuestion;
 }
 
+// FUNCTION - replaces the question on the HTML Page with the fetched question 
 function replaceQuestion(selectedQuestion) {
   lkj("\n\n  ===== In replaceQuestion() =====");
   // fetch parent element
@@ -144,6 +150,7 @@ function replaceQuestion(selectedQuestion) {
   lkj("  ===== End of replaceQuestion() =====\n\n");
 }
 
+// FUNCTION - replaces the options on the HTML Page with the fetched options 
 function replaceOptions(selectedQuestion) {
   lkj("\n\n  ===== In replaceOptions() =====");
 
@@ -159,6 +166,7 @@ function replaceOptions(selectedQuestion) {
   lkj("  ===== End of replaceOptions() =====\n\n");
 }
 
+// FUNCTION - replaces options on the page if the question id is odd
 function oddOptionOrder(questionList, selectedQuestion) {
   let div;
   let isRight = true;
@@ -172,6 +180,7 @@ function oddOptionOrder(questionList, selectedQuestion) {
   questionList.removeChild(questionList.children[0]);
 }
 
+// FUNCTION - replaces options on the page if the question id is even
 function evenOptionOrder(questionList, selectedQuestion) {
   let div;
   let isRight = false;
@@ -185,6 +194,7 @@ function evenOptionOrder(questionList, selectedQuestion) {
   questionList.removeChild(questionList.children[0]);
 }
 
+// FUNCTION - returns the div question element to be inserted in the HTML Page
 function createDivForOption(selectedQuestion, optionText, isRight) {
   let questionList = document.querySelector('#quiz-options');
   // create div
@@ -222,6 +232,7 @@ function createDivForOption(selectedQuestion, optionText, isRight) {
   return div;
 }
 
+// EVENT FUNCTION - activated if enter key is pressed when any of the question fields is active 
 function wasEnterPressed(e) {
   lkj("In wasEnterPressed()");
   if (e.keyCode == 13) {
@@ -236,6 +247,7 @@ function wasEnterPressed(e) {
 
 }
 
+// EVENT FUNCTION - activated when user wants to submit a question 
 function addQuestion(e) {
   lkj("\n\n===== QUESTION ADDITION PHASE =====");
   lkj("In addQuestion()");
@@ -273,12 +285,16 @@ function addQuestion(e) {
     // Update localQB
     updateLocalQB();
     resetQuestionFields();
+
+    displayQuestionMessage('Question Added Successfully!', 'green');
+    // setTimeout(displayQuestionMessage('You may add another question...', 'blue'), 5000);
   } else {
     lkj("ERROR - Something Field is Missing");
   }
   lkj("===== QUESTION ADDITION PHASE COMPLETE =====\n\n")
 }
 
+// FUNCTION - returns the text from selected question
 function getQuestionText(e) {
   lkj("In getQuestionText()");
   // getting question text
@@ -289,6 +305,7 @@ function getQuestionText(e) {
   return value;
 }
 
+// FUNCTION - get text from answers
 function getCorrectAnswerText(e) {
   lkj("In getCorrectAnswerText()");
   // getting question text
@@ -299,6 +316,7 @@ function getCorrectAnswerText(e) {
   return value;
 }
 
+// FUNCTION - gets text from the wrong answer
 function getWrongAnswerText(e) {
   lkj("In getWrongAnswerText()");
   // getting question text
@@ -309,20 +327,24 @@ function getWrongAnswerText(e) {
   return value;
 }
 
+// FUNCTION - validates if all question fields have been entered and the question can be created
 function canCreateQuestion(question, correctAns, wrongAns) {
   // if any of the fields are empty, then display error message
   let canWeDoThat = true;
   if (question == '') {
     lkj("ERROR : Question Missing");
-    alert('Oops! You have no Question, mate!\nERROR - Question field empth');
+    // alert('Oops! You have no Question, mate!\nERROR - Question field empth');
+    displayQuestionMessage('Question Field Missing', 'red');
     canWeDoThat = false;
   } else if (correctAns == '') {
     lkj("ERROR : Correct Answer Missing");
-    alert("This question don't have no right answer?\nERROR - Correct Answer field empth");
+    // alert("This question don't have no right answer?\nERROR - Correct Answer field empth");
+    displayQuestionMessage('Answer Field is Empty', 'red');
     canWeDoThat = false;
   } else if (wrongAns == '') {
     lkj("ERROR : Wrong Answer Missing");
-    alert('Not everything is right. Please enter a wrong answer!\nERROR - Wrong Answer field empth');
+    // alert('Not everything is right. Please enter a wrong answer!\nERROR - Wrong Answer field empth');
+    displayQuestionMessage('Oops! There are no options', 'orange');
     canWeDoThat = false;
   } else {
     lkj("SUCCESS - All Question Fields completed and no error raised");
@@ -330,34 +352,25 @@ function canCreateQuestion(question, correctAns, wrongAns) {
   return canWeDoThat;
 }
 
-function resetQuestionFields() {
-  lkj("In resetQuestionFields()");
-  // getting question text
-  let parentElement = e.currentTarget;
-  let element = parentElement.querySelector("#question-box");
-  element.value = '';
-  element = parentElement.querySelector("#correct-answer-box");
-  element.value = '';
-  element = parentElement.querySelector("#wrong-answer-box");
-  element.value = '';
-  lkj("SUCCESS - All Question Values cleared.")
-}
-
+// FUNCTION - console logs the current question bank 
 function printQuestionBank() {
   lkj("Session Question Bank:");
   lkj(questionBank);
 }
 
+// FUNCTION - console logs the contents saved in the current question element
 function printQuestion() {
   lkj("Current Question:");
   lkj(question);
 }
 
+// FUNCTION - console logs the local storage options 
 function printLocalQB() {
   lkj("local Question Bank:");
   lkj(localStorage.getItem(localQB));
 }
 
+// EVENT FUNCTION - resets the question fields when user presses the reset questions field
 function resetQuestionFields() {
   lkj("===== In resetQuestionFields() =====");
   // fetch the input boxes
@@ -370,10 +383,11 @@ function resetQuestionFields() {
   lkj("===== End of resetQuestionFields() =====");
 }
 
-function displayQuestionMessage(message) {
-  message = '<h2>' + message + '</h2>';
+// FUNCTION - displays the messaged passed in the color specified
+function displayQuestionMessage(message, color) {
+  message = '<h4>' + message + '</h4>';
   document.querySelector("#question-section-message").innerHTML = message;
-  document.querySelector("#question-section-message").style.color = 'red';
+  document.querySelector("#question-section-message").style.color = color;
 }
 
 // FUNCTION - updateLocalStorage() is called when a value in currentTaskList changes and localStorage needs to be updated
@@ -383,6 +397,7 @@ function updateLocalQB() {
   lkj("  ===== End of updateLocalQB() =====\n\n");
 }
 
+// FUNCTION - this function has a sample Question Bank and populates the questions when the populate question is clicked 
 function populateQuiz() {
   questionBank = [{
       id: 1,
@@ -445,25 +460,10 @@ function populateQuiz() {
       wro: 'False'
     }
   ];
-  updateLocalQB;
+  // updateLocalQB();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// FUNCTION - shortcut for console logs. cause i am lazy to type console.log
 function lkj(val) {
   console.log(val);
 }
