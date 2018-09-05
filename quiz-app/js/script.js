@@ -20,6 +20,7 @@ let question = {};
 // fetch elements from DOM
 let addQuestionSection = document.querySelector("#add-question-section");
 let quizSection = document.querySelector("#quiz-section");
+let populateButton = document.querySelector("#populate-kb");
 
 
 // Add Event Listeners to the Elements
@@ -27,6 +28,8 @@ let quizSection = document.querySelector("#quiz-section");
 addQuestionSection.addEventListener('click', whereWasTheClick);
 quizSection.addEventListener('click', whereWasTheClick);
 quizSection.addEventListener('keypress', wasEnterPressed);
+quizSection.addEventListener('keypress', whereWasTheClick);
+populateButton.addEventListener('click', populateQuiz);
 
 // function to check on which element the click occured and call the appropriate function
 function whereWasTheClick(e) {
@@ -65,8 +68,8 @@ function whereWasTheClick(e) {
       resetQuestionFields();
       break;
   }
+  return;
 }
-
 
 function quizSubmitAnswer() {
   lkj("In quizSubmitAnswer()");
@@ -89,10 +92,10 @@ function quizShowAnswer() {
 
 function showNextQuestion() {
   lkj("===== In showNextQuestion() =====");
-  
+
   // get random question number
   let id = getRandomQuestionID();
-  
+
   // fetch question and answer based on id
   question = getQuestion(id);
   lkj("Recieved Question:");
@@ -100,7 +103,7 @@ function showNextQuestion() {
 
   // clear out the text in Question and replace tih new question
   replaceQuestion(question);
-  
+
   // clear out options and populate the new options
   replaceOptions(question);
   lkj("===== End of showNextQuestion() =====");
@@ -119,9 +122,9 @@ function getRandomQuestionID() {
 
 function getQuestion(id) {
   lkj("\n\n  ===== In getQuestion(id) =====");
-  
-  let tempQuestion = questionBank[id];  
-  
+
+  let tempQuestion = questionBank[id];
+
   lkj("  - SUCCESS : Selected question returned.");
   lkj("  ===== End of getQuestion(id). Selected question returned. =====\n\n");
   return tempQuestion;
@@ -132,11 +135,11 @@ function replaceQuestion(selectedQuestion) {
   // fetch parent element
   let currentQuestion = document.querySelector("#quiz-question");
   lkj("  - Current Question:");
-  lkj(currentQuestion); 
-  
+  lkj(currentQuestion);
+
   // replace innerText
   currentQuestion.innerText = selectedQuestion.que;
-  
+
   lkj("  - SUCCESS : Question replaced successfully");
   lkj("  ===== End of replaceQuestion() =====\n\n");
 }
@@ -147,78 +150,87 @@ function replaceOptions(selectedQuestion) {
   let questionList = document.querySelector('#quiz-options');
 
   // Follow one order for odd and other order for even
-  if(selectedQuestion.id % 2 == 0){
-    lkj("    - ***************** Even order question");
+  if (selectedQuestion.id % 2 == 0) {
     oddOptionOrder(questionList, selectedQuestion);
+  } else {
+    evenOptionOrder(questionList, selectedQuestion);
   }
-  else{
-    lkj("    - Odd order question");
-    evenOptionOrder(questionList, selectedQuestion);    
-  }
-    
+
   lkj("  ===== End of replaceOptions() =====\n\n");
 }
 
-function oddOptionOrder(questionList, selectedQuestion){
+function oddOptionOrder(questionList, selectedQuestion) {
   let div;
-  div = createDivForQuestion(selectedQuestion, selectedQuestion.ans);
+  let isRight = true;
+  div = createDivForOption(selectedQuestion, selectedQuestion.ans, isRight);
   questionList.appendChild(div);
   questionList.removeChild(questionList.children[0]);
 
-  div = createDivForQuestion(selectedQuestion, selectedQuestion.wro);
+  isRight = false;
+  div = createDivForOption(selectedQuestion, selectedQuestion.wro, isRight);
   questionList.appendChild(div);
   questionList.removeChild(questionList.children[0]);
 }
 
-function evenOptionOrder(questionList, selectedQuestion){
+function evenOptionOrder(questionList, selectedQuestion) {
   let div;
-  div = createDivForQuestion(selectedQuestion, selectedQuestion.wro);
+  let isRight = false;
+  div = createDivForOption(selectedQuestion, selectedQuestion.wro, isRight);
   questionList.appendChild(div);
   questionList.removeChild(questionList.children[0]);
 
-  div = createDivForQuestion(selectedQuestion, selectedQuestion.ans);
+  isRight = true;
+  div = createDivForOption(selectedQuestion, selectedQuestion.ans, isRight);
   questionList.appendChild(div);
   questionList.removeChild(questionList.children[0]);
 }
 
-function createDivForQuestion(selectedQuestion, optionText){
+function createDivForOption(selectedQuestion, optionText, isRight) {
   let questionList = document.querySelector('#quiz-options');
   // create div
   let div = document.createElement("div");
   div.className = 'form-check';
-  
-    // create label
-    let label = document.createElement('label');
-    label.setAttribute("class", "form-check-label");
-    // lkj("Label:");
-    // lkj(label);
-    
-    // create new input element
-    let inputElement = document.createElement("input");
-    inputElement.setAttribute("class", "form-check-input");
-    inputElement.setAttribute("type", "radio");
-    // lkj("Input Label:");
-    // lkj(inputElement);
-    
-    // create text node
-    let newText = document.createTextNode(optionText);
-    // replacing innerText of original question
-    questionList.children[0].innerText = newText;
-    
-    // append into div - lavel, text and input
-    label.appendChild(inputElement);
-    label.appendChild(newText);
-    div.appendChild(label);
 
-    return div;  
+  // create label
+  let label = document.createElement('label');
+  label.setAttribute("class", "form-check-label");
+  if (isRight) {
+    label.setAttribute("correct", "yes");
+  } else {
+    label.setAttribute("correct", "no");
+  }
+  // lkj("Label:");
+  // lkj(label);
+
+  // create new input element
+  let inputElement = document.createElement("input");
+  inputElement.setAttribute("class", "form-check-input");
+  inputElement.setAttribute("type", "radio");
+  // lkj("Input Label:");
+  // lkj(inputElement);
+
+  // create text node
+  let newText = document.createTextNode(optionText);
+  // replacing innerText of original question
+  questionList.children[0].innerText = newText;
+
+  // append into div - lavel, text and input
+  label.appendChild(inputElement);
+  label.appendChild(newText);
+  div.appendChild(label);
+
+  return div;
 }
 
 function wasEnterPressed(e) {
   lkj("In wasEnterPressed()");
-  if (e.currentTarget.value != '' && e.keyCode == 13) {
+  if (e.keyCode == 13) {
+    lkj("Enter pressed");
+  }
+  if (e.target.value != '' && e.keyCode == 13) {
     lkj('enter pressed. Value Added: ' + e.target.value);
-    addQuestion(e);
-  } else if (e.currentTarget.value == '' && e.keyCode == 13) {
+    // addQuestion(e);
+  } else if (e.target.value == '' && e.keyCode == 13) {
     lkj('ERROR: enter pressed. NO VALUE ');
   }
 
@@ -347,36 +359,94 @@ function printLocalQB() {
 }
 
 function resetQuestionFields() {
+  lkj("===== In resetQuestionFields() =====");
   // fetch the input boxes
+  document.querySelector("#question-box").value = '';
+  document.querySelector("#correct-answer-box").value = '';
+  document.querySelector("#wrong-answer-box").value = '';
 
+  displayQuestionMessage('Fields Reset');
   // replace values in input boxes as ''
+  lkj("===== End of resetQuestionFields() =====");
 }
+
+function displayQuestionMessage(message) {
+  message = '<h2>' + message + '</h2>';
+  document.querySelector("#question-section-message").innerHTML = message;
+  document.querySelector("#question-section-message").style.color = 'red';
+}
+
 // FUNCTION - updateLocalStorage() is called when a value in currentTaskList changes and localStorage needs to be updated
 function updateLocalQB() {
-  lkj("In updateLocalQB()");
+  lkj("\n\n  ===== In updateLocalQB() =====");
   localStorage.setItem('localQB', JSON.stringify(questionBank));
+  lkj("  ===== End of updateLocalQB() =====\n\n");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function populateQuiz() {
+  questionBank = [{
+      id: 1,
+      que: 'As far as has ever been reported, no-one has ever seen an ostrich bury its head in the sand.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 2,
+      que: 'Approximately one quarter of human bones are in the feet.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 3,
+      que: 'Popeye’s nephews were called Peepeye, Poopeye, Pipeye and Pupeye.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 4,
+      que: 'In ancient Rome, a special room called a vomitorium was available for diners to purge food in during meals.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 5,
+      que: 'The average person will shed 10 pounds of skin during their lifetime.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 6,
+      que: 'Sneezes regularly exceed 100 m.p.h.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 7,
+      que: 'A slug’s blood is green.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 8,
+      que: 'The Great Wall Of China is visible from the moon.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 9,
+      que: 'Virtually all Las Vegas gambling casinos ensure that they have no clocks.',
+      ans: 'True',
+      wro: 'False'
+    },
+    {
+      id: 10,
+      que: 'The total surface area of two human lungs have a surface area of approximately 70 square metres.',
+      ans: 'True',
+      wro: 'False'
+    }
+  ];
+  updateLocalQB;
+}
 
 
 

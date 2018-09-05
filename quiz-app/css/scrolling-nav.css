@@ -30,3 +30,7 @@ section {
   padding-bottom: 2.5%;
   color: green;
 }
+
+.btn-pad {
+  padding: 1%;
+}
