@@ -15,6 +15,8 @@
 
   <!-- Custom styles for this template -->
   <link href="css/scrolling-nav.css" rel="stylesheet">
+  <!-- Custom styles for quiz page -->
+  <link href="css/style.css" rel="stylesheet">
 
 </head>
 
@@ -46,9 +48,25 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Welcome to Quizzacious</h1>
-      <p class="lead">The poor man's Quiz App, where you add a question... And answer it yourself!!</p>
-      <button type="button" class="btn btn-secondary btn-lg" id="populate-kb">Populate KB</button>
+      <div class="row">
+        <div class="col">
+          <h1>Welcome to Quizzacious</h1>
+          <p class="lead">The poor man's Quiz App, where you add a question... And answer it yourself!!</p>
+        </div>
+      </div>
+      <div id="choose-quiz-section">
+        <div class="row" id="quiz-category">
+          <div class="col">
+            <button type="button" class="btn btn-pad btn-danger btn-lg" id="html-quiz-category">HTML</button>
+            <button type="button" class="btn btn-pad btn-success btn-lg" id="css-quiz-category">CSS</button>
+            <button type="button" class="btn btn-pad btn-warning btn-lg" id="js-quiz-category">JS</button>
+          </div>
+        </div>
+        <div class="row" id="quiz-topic">
+          <div class="col">
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -76,20 +94,20 @@
 
 
           <div class="quiz-button-section">
-              <button id="submit-answer" type="button" class="btn btn-lg btn-outline-primary btn-pad">Submit Answer</button>
-              <button id="show-answer" type="button" class="btn btn-lg btn-outline-danger btn-pad">Show Answer</button>
-              <button id="next-question" type="button" class="btn btn-lg btn-outline-success btn-pad">Next Question</button>
+            <button id="submit-answer" type="button" class="btn btn-lg btn-outline-primary btn-pad">Submit Answer</button>
+            <button id="show-answer" type="button" class="btn btn-lg btn-outline-danger btn-pad">Show Answer</button>
+            <button id="next-question" type="button" class="btn btn-lg btn-outline-success btn-pad">Next Question</button>
           </div>
         </div>
 
         <div class="col-lg-4 mx-auto">
           <div id="result-section">
-              <h2>Result</h2>
-              <div class="lead" id="result">Correct/Wrong</div>
+            <h2>Result</h2>
+            <div class="lead" id="result">Correct/Wrong</div>
           </div>
           <div id="show-answer-section">
-              <h2>Answer</h2>
-              <div class="lead" id="answer">This is the anwer</div>
+            <h2>Answer</h2>
+            <div class="lead" id="answer">This is the anwer</div>
           </div>
         </div>
       </div>
@@ -101,43 +119,35 @@
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h2>Add a Question</h2>
-          
+
 
           <div class="form-group row">
-              <label for="question-input" class="col-2 col-form-label">Question</label>
-              <div class="col-10">
-                <input id="question-box" class="form-control" type="text" value="Enter question here" id="question-input">
-              </div>
+            <label for="question-input" class="col-2 col-form-label">Question</label>
+            <div class="col-10">
+              <input id="question-box" class="form-control" type="text" value="Enter question here" id="question-input">
             </div>
-            <div class="form-group row">
-              <label for="correct-answer-input" class="col-2 col-form-label">Answer</label>
-              <div class="col-10">
-                <input id="correct-answer-box" class="form-control" type="text" value="Enter the correct answer here">
-              </div>
+          </div>
+          <div class="form-group row">
+            <label for="correct-answer-input" class="col-2 col-form-label">Answer</label>
+            <div class="col-10">
+              <input id="correct-answer-box" class="form-control" type="text" value="Enter the correct answer here">
             </div>
-            <div class="form-group row">
-              <label for="wrong-answer-input" class="col-2 col-form-label">Options</label>
-              <div class="col-10">
-                <input id="wrong-answer-box" class="form-control" type="text" value="Enter other options here">
-              </div>
+          </div>
+          <div class="form-group row">
+            <label for="wrong-answer-input" class="col-2 col-form-label">Options</label>
+            <div class="col-10">
+              <input id="wrong-answer-box" class="form-control" type="text" value="Enter other options here">
             </div>
+          </div>
 
-            <div class="add-question-button-section">
-                <button id="add-question" type="button" class="btn btn-lg btn-outline-success">Add</button>
-                <button id="reset-question" type="button" class="btn btn-lg btn-outline-danger">Reset</button>
-            </div>
+          <div class="add-question-button-section">
+            <button id="add-question" type="button" class="btn btn-lg btn-outline-success">Add</button>
+            <button id="reset-question" type="button" class="btn btn-lg btn-outline-danger">Reset</button>
+          </div>
 
-
-
-            <div id="question-section-message">
-                <h4>Please enter the question and press the add button</h3>
-            </div>
-
-
-
-
-
-
+          <div id="question-section-message">
+            <h4>Please enter the question and press the add button</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -148,7 +158,7 @@
       <div class="row">
         <div class="col-lg-8 m-auto">
           <h2>About App</h2>
-          <p class="lead">This quiz app can: 
+          <p class="lead">This quiz app can:
             <ul>
               <li>Show question in random order</li>
               <li>Show result and answer</li>
@@ -180,6 +190,8 @@
 
   <!-- Custom JavaScript for Quiz App -->
   <script src="js/script.js"></script>
+  <!-- Custom JavaScript for loading question banks -->
+  <script src="js/kb.js"></script>
 
 </body>
 
