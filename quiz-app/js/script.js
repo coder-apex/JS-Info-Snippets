@@ -104,7 +104,7 @@ function chooseQuizTopic(e) {
   let button = e.target;
   //--cl('Button cicked is : ');
   //--cl(button);
-  
+
   // get text written on the button
   let buttonText = button.innerText;
   //--cl('Button text is : ');
@@ -113,43 +113,59 @@ function chooseQuizTopic(e) {
   // set quizCategoryTopicID based on the text of the button
   setQuizCategoryTopicID(buttonText);
 
+  // after setting the ID we will load the correct QB
+  cl(quizCategoryTopicID);
+  cl('- Calling loadCorrectQB(quizCategoryTopicID)');
+  loadCorrectQB(quizCategoryTopicID);
+
   //--cl('=== in chooseQuizTopic() ===\n\n');
 }
 
-function setQuizCategoryTopicID(buttonText){
-  switch (buttonText){
+function setQuizCategoryTopicID(buttonText) {
+  switch (buttonText) {
     case 'Tags':
-      categoryID = 'html1';
+      quizCategoryTopicID = 'html1';
+      cl('HTML1 Success;');
+      return quizCategoryTopicID;
       break;
     case 'Elements':
-      categoryID = 'html2';
+      quizCategoryTopicID = 'html2';
+      return quizCategoryTopicID;
       break;
     case 'Features':
-      categoryID = 'html3';
+      quizCategoryTopicID = 'html3';
+      return quizCategoryTopicID;
       break;
     case 'CSS Basics':
-      categoryID = 'css1';
+      quizCategoryTopicID = 'css1';
+      return quizCategoryTopicID;
       break;
     case 'CSS Advanced':
-      categoryID = 'css2';
+      quizCategoryTopicID = 'css2';
+      return quizCategoryTopicID;
       break;
     case 'CSS Responsive':
-      categoryID = 'css3';
+      quizCategoryTopicID = 'css3';
+      return quizCategoryTopicID;
       break;
     case 'CSS Grid':
-      categoryID = 'css4';
+      quizCategoryTopicID = 'css4';
+      return quizCategoryTopicID;
       break;
     case 'JS Tags':
-      categoryID = 'js1';
+      quizCategoryTopicID = 'js1';
+      return quizCategoryTopicID;
       break;
     case 'JS Elements':
-      categoryID = 'js2';
+      quizCategoryTopicID = 'js2';
+      return quizCategoryTopicID;
       break;
     case 'JS Features':
-      categoryID = 'js3';
+      quizCategoryTopicID = 'js3';
+      return quizCategoryTopicID;
       break;
   }
-  //--cl('categoryID : ' + categoryID);
+  //--cl('quizCategoryTopicID : ' + quizCategoryTopicID);
 }
 
 
