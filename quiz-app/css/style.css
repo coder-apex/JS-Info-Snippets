@@ -1,0 +1,26 @@
+.quiz-button-section {
+  padding: 2.5%;
+}
+
+#show-answer-section {
+  color: red;
+}
+
+#question-add-success-message {
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  color: green;
+}
+
+.btn-pad {
+  padding: 5px 10px 5px 10px;
+  margin: 0px 5px 0px 5px;
+}
+
+#quiz-category{
+  padding: 1%;
+}
+
+#quiz-topic{
+  padding: 1%;
+}
