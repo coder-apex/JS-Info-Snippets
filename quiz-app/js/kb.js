@@ -15,10 +15,10 @@ let originalQB;
 // create localStorage item if it does not exist
 if (localStorage.getItem('localQB') === null) {
   originalQB = [];
-  cl("No localQuestionBank value. Creating questionBank[]. ")
+  clkj("No localQuestionBank value. Creating questionBank[]. ")
 } else {
   originalQB = JSON.parse(localStorage.getItem('localQB'));
-  cl("localQB value exists. Values copied to originalQB[]. ")
+  clkj("localQB value exists. Values copied to originalQB[]. ")
 }
 
 
@@ -26,9 +26,9 @@ if (localStorage.getItem('localQB') === null) {
 
 
 function setLocalQB() {
-  cl("\n\n  ===== In setLocalQB() =====");
+  clkj("\n\n  ===== In setLocalQB() =====");
   localStorage.setItem('localQB', JSON.stringify(questionBank));
-  cl("  ===== End of setLocalQB() =====\n\n");
+  clkj("  ===== End of setLocalQB() =====\n\n");
 }
 
 
@@ -38,9 +38,9 @@ function setLocalQB() {
 
 // load the correct question bank when user requires
 function loadCorrectQB(quizCategoryTopicID) {
-  cl('\n\n  ===  In loadCorrectQB(quizCategoryTopicID) ===');
+  clkj('\n\n  ===  In loadCorrectQB(quizCategoryTopicID) ===');
 
-  cl(quizCategoryTopicID);
+  clkj(quizCategoryTopicID);
   let categoryString = quizCategoryTopicID.toString(); 
 
 
@@ -53,7 +53,7 @@ function loadCorrectQB(quizCategoryTopicID) {
 
 
 
-  cl('  ===  Exiting loadCorrectQB(quizCategoryTopicID) ===\n\n');
+  clkj('  ===  Exiting loadCorrectQB(quizCategoryTopicID) ===\n\n');
 }
 
 
@@ -65,16 +65,10 @@ function loadCorrectQB(quizCategoryTopicID) {
 
 
 
-// TRACKING USER SESSION
-let totalQuestions = 0;
-let correctAnswers = 0;
 
-
-
-
-
-
-
+function clkj(val){
+  console.log(val);
+}
 
 
 
