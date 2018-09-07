@@ -36,14 +36,12 @@ function setLocalQB() {
 
 
 
-// load the correct question bank when user requires
-function loadCorrectQB(quizCategoryTopicID) {
-  clkj('\n\n  ===  In loadCorrectQB(quizCategoryTopicID) ===');
+// // load the correct question bank when user requires
+// function loadCorrectQB(quizCategoryTopicID) {
+//   clkj('\n\n  ===  In loadCorrectQB(quizCategoryTopicID) ===');
 
-  clkj(quizCategoryTopicID);
-  let categoryString = quizCategoryTopicID.toString(); 
-
-
+//   clkj(quizCategoryTopicID);
+//   let categoryString = quizCategoryTopicID.toString(); 
 
 
 
@@ -53,8 +51,10 @@ function loadCorrectQB(quizCategoryTopicID) {
 
 
 
-  clkj('  ===  Exiting loadCorrectQB(quizCategoryTopicID) ===\n\n');
-}
+
+
+//   clkj('  ===  Exiting loadCorrectQB(quizCategoryTopicID) ===\n\n');
+// }
 
 
 
